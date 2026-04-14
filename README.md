@@ -2,6 +2,8 @@
 
 Interactive hands-on LMS that runs inside Claude Code.
 
+> 日本語版の README は [README.ja.md](./README.ja.md) を参照してください。
+
 `claude-teacher` treats Claude Code not as a chatbot but as a teaching runtime.
 Courses are structured data; lessons are skill-launched workflows; the teacher
 is a dedicated subagent; progress lives in plain files that survive
