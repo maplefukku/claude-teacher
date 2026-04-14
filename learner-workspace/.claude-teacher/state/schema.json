@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://claude-teacher.example/schema/progress.v1.json",
+  "title": "claude-teacher progress file",
+  "description": "The shape of .claude-teacher/progress/<course-id>/<lesson-id>.json. This file is the source of truth for a learner's state in a lesson. Runtime skills read and write it. Claude Code task lists are UI only; this file is the DB.",
+  "type": "object",
+  "required": [
+    "course_id",
+    "lesson_id",
+    "status",
+    "started_at",
+    "attempt_count",
+    "hint_level_max",
+    "artifacts",
+    "rubric_scores",
+    "submission_path"
+  ],
+  "properties": {
+    "course_id": { "type": "string" },
+    "lesson_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["not_started", "in_progress", "blocked", "completed"]
+    },
+    "started_at": { "type": "string", "format": "date-time" },
+    "last_checkpoint_at": { "type": ["string", "null"], "format": "date-time" },
+    "completed_at": { "type": ["string", "null"], "format": "date-time" },
+    "attempt_count": { "type": "integer", "minimum": 0 },
+    "hint_level_max": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Highest hint level revealed to the learner for this lesson. Never decreases."
+    },
+    "used_reference_implementation": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the learner looked at a known-good reference answer. Does not block pass/fail but is surfaced in review."
+    },
+    "can_explain_in_own_words": {
+      "type": ["boolean", "null"],
+      "default": null,
+      "description": "Set by /reflect. True only if the reflection is grounded, specific, and not copy-pasted."
+    },
+    "artifacts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "File paths the learner has produced or modified as part of this lesson."
+    },
+    "rubric_scores": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" },
+      "description": "Map of rubric item id -> pass. Missing keys are treated as not-yet-evaluated."
+    },
+    "submission_path": { "type": "string" },
+    "reflection": {
+      "type": ["string", "null"],
+      "description": "Path to the reflection file under .claude-teacher/submissions/<course>/, or null."
+    },
+    "next_recommended_lesson": { "type": ["string", "null"] }
+  }
+}

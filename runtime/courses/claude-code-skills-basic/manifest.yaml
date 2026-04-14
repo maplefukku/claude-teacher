@@ -1,0 +1,84 @@
+# Compiled course pack manifest for claude-teacher runtime.
+# This file is produced by /compile-course-pack from authoring/outputs/.
+# Do NOT hand-edit. Hand edits will be overwritten on next compile.
+#
+# Runtime skills (/course-start, /lesson-start, etc.) read this file as the
+# source of truth for the shape of the course.
+
+course:
+  id: claude-code-skills-basic
+  title: "Claude Code Skills: Hands-on Intro"
+  version: "0.1.0"
+  audience: "Engineers who already use Claude Code but have never built a custom Skill."
+  prerequisites:
+    - "Claude Code installed and running"
+    - "Comfortable reading markdown and YAML frontmatter"
+    - "Basic git: clone, edit, commit"
+  goal:
+    - "Understand what a Skill is, mechanically and strategically"
+    - "Install and invoke an existing Skill locally"
+    - "Author a working Skill from scratch with a clean frontmatter, lean description, and substantive body"
+  non_goals:
+    - "Plugin publishing and distribution (covered in a future course)"
+    - "Writing subagents"
+    - "Hook design"
+  estimated_duration_min: 90
+  completion_criteria:
+    - "All three lessons have status=completed in progress files"
+    - "Final lesson artifact exists at the submitted skill path and is manually invocable"
+  assessment_strategy: "Rubric-based per-lesson grading via /checkpoint and /review-submission, plus per-lesson reflection."
+
+modules:
+  - id: m1
+    title: "Skills From the Outside In"
+    summary: "Read a skill, run a skill, write a skill."
+    lesson_ids: [l01-skill-anatomy, l02-invoke-and-inspect, l03-author-a-skill]
+    checkout_question: "Explain to a teammate in 3 sentences why description should be lean and body can be heavy."
+
+lessons:
+  - id: l01-skill-anatomy
+    module_id: m1
+    title: "Skill Anatomy"
+    type: reading
+    duration_min: 20
+    prereqs: []
+    objective: "Read an existing SKILL.md and explain every frontmatter field and the body structure."
+    completion_criteria:
+      - "Submission exists at .claude-teacher/submissions/claude-code-skills-basic/l01-skill-anatomy.md"
+      - "All rubric items in lessons/01-skill-anatomy/rubric.md pass"
+    submission_path: ".claude-teacher/submissions/claude-code-skills-basic/l01-skill-anatomy.md"
+    rubric_file: "lessons/01-skill-anatomy/rubric.md"
+    hints_file: "lessons/01-skill-anatomy/hints.md"
+    examples_file: "lessons/01-skill-anatomy/examples.md"
+
+  - id: l02-invoke-and-inspect
+    module_id: m1
+    title: "Invoke and Inspect"
+    type: hands-on
+    duration_min: 25
+    prereqs: [l01-skill-anatomy]
+    objective: "Install a sample skill into a scratch workspace, invoke it, and articulate the difference between description and body loading."
+    completion_criteria:
+      - "Sample skill installed and invoked in scratch workspace"
+      - "Submission at .claude-teacher/submissions/claude-code-skills-basic/l02-invoke-and-inspect.md"
+      - "Rubric items pass"
+    submission_path: ".claude-teacher/submissions/claude-code-skills-basic/l02-invoke-and-inspect.md"
+    rubric_file: "lessons/02-invoke-and-inspect/rubric.md"
+    hints_file: "lessons/02-invoke-and-inspect/hints.md"
+    examples_file: "lessons/02-invoke-and-inspect/examples.md"
+
+  - id: l03-author-a-skill
+    module_id: m1
+    title: "Author a Skill"
+    type: hands-on
+    duration_min: 45
+    prereqs: [l02-invoke-and-inspect]
+    objective: "Author a working commit-summary Skill with lean description, clean frontmatter, and a substantive body."
+    completion_criteria:
+      - "Skill exists in scratch .claude/skills/commit-summary/SKILL.md"
+      - "Skill is manually invocable"
+      - "All rubric items pass"
+    submission_path: "scratch/commit-summary/.claude/skills/commit-summary/SKILL.md"
+    rubric_file: "lessons/03-author-a-skill/rubric.md"
+    hints_file: "lessons/03-author-a-skill/hints.md"
+    examples_file: "lessons/03-author-a-skill/examples.md"

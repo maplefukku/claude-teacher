@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_comment": "Example learner workspace settings for claude-teacher. Copy this into a real learner project's .claude/settings.json to enable progress logging, submission auto-tracking, and guardrails against accidentally editing teacher-owned course content.",
+  "permissions": {
+    "deny": [
+      "Edit(runtime/courses/**)",
+      "Write(runtime/courses/**)",
+      "Edit(.claude-teacher/state/**)"
+    ],
+    "allow": [
+      "Read(.claude-teacher/**)",
+      "Write(.claude-teacher/submissions/**)",
+      "Edit(.claude-teacher/submissions/**)",
+      "Write(.claude-teacher/progress/**)",
+      "Edit(.claude-teacher/progress/**)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'f=\"${CLAUDE_TOOL_INPUT_FILE_PATH:-}\"; case \"$f\" in .claude-teacher/submissions/*) mkdir -p .claude-teacher/logs; date -u +%FT%TZ | xargs -I{} echo \"{} submission-touched $f\" >> .claude-teacher/logs/submissions.log ;; esac'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'f=\"${CLAUDE_TOOL_INPUT_FILE_PATH:-}\"; case \"$f\" in runtime/courses/*) echo \"BLOCKED: runtime/courses is teacher-owned. Edit the authoring DSL and recompile instead.\" >&2; exit 2 ;; esac; exit 0'"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'mkdir -p .claude-teacher/progress .claude-teacher/logs .claude-teacher/submissions .claude-teacher/state'"
+          }
+        ]
+      }
+    ]
+  }
+}
