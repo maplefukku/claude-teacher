@@ -1,0 +1,98 @@
+# =============================================================================
+# course.yaml - Course DSL (single source of truth)
+# =============================================================================
+# This file is the SINGLE SOURCE OF TRUTH for a course.
+#
+# The runtime course pack (under runtime/) is COMPILED from this file by the
+# authoring toolchain. Do NOT hand-edit runtime artifacts - edit this file and
+# recompile. If you find yourself tempted to tweak a compiled file, stop and
+# update the source here instead.
+#
+# Fill this in using the /design-course, /design-module, and /design-lesson
+# skills. Placeholders are marked with <angle-brackets> or <TODO>.
+# =============================================================================
+
+course:
+  id: <course-id>                       # e.g. "intro-to-rust"
+  title: <course title>
+  version: 0.1.0
+  audience: <audience>                  # who this course is for
+  prerequisites:
+    - <prereq-1>
+    - <prereq-2>
+  goal:
+    # Learning outcomes - what the student can do by the end.
+    - <outcome-1>
+    - <outcome-2>
+    - <outcome-3>
+  non_goals:
+    # Things this course deliberately does NOT cover.
+    - <non-goal-1>
+    - <non-goal-2>
+  estimated_duration_min: <TODO>        # total minutes across all lessons
+  completion_criteria:
+    - <criterion-1>
+    - <criterion-2>
+  assessment_strategy: <TODO>           # e.g. "project-based", "checkpoint-gated", "rubric-review"
+
+modules:
+  - id: <module-id-1>                   # e.g. "m1-foundations"
+    title: <module title>
+    summary: <one or two sentence summary>
+    lesson_ids:
+      - <lesson-id-1>
+      - <lesson-id-2>
+    checkout_question: <TODO>           # question the teacher asks to confirm module mastery
+
+  - id: <module-id-2>
+    title: <module title>
+    summary: <TODO>
+    lesson_ids:
+      - <lesson-id-3>
+    checkout_question: <TODO>
+
+lessons:
+  - id: <lesson-id-1>                   # e.g. "l1-hello-world"
+    module_id: <module-id-1>
+    title: <lesson title>
+    type: reading                       # reading | hands-on | project
+    duration_min: <TODO>
+    prereqs: []                         # list of lesson ids that must be completed first
+    objective: <one sentence objective>
+    completion_criteria:
+      - <criterion-1>
+      - <criterion-2>
+    submission_path: <path/for/student/work>
+    rubric_file: rubrics/<lesson-id-1>.md
+    hints_file: hints/<lesson-id-1>.md
+    examples_file: examples/<lesson-id-1>.md
+
+  - id: <lesson-id-2>
+    module_id: <module-id-1>
+    title: <lesson title>
+    type: hands-on
+    duration_min: <TODO>
+    prereqs:
+      - <lesson-id-1>
+    objective: <TODO>
+    completion_criteria:
+      - <TODO>
+    submission_path: <path/for/student/work>
+    rubric_file: rubrics/<lesson-id-2>.md
+    hints_file: hints/<lesson-id-2>.md
+    examples_file: examples/<lesson-id-2>.md
+
+  - id: <lesson-id-3>
+    module_id: <module-id-2>
+    title: <lesson title>
+    type: project
+    duration_min: <TODO>
+    prereqs:
+      - <lesson-id-2>
+    objective: <TODO>
+    completion_criteria:
+      - <TODO>
+    submission_path: <path/for/student/work>
+    rubric_file: rubrics/<lesson-id-3>.md
+    hints_file: hints/<lesson-id-3>.md
+    examples_file: examples/<lesson-id-3>.md

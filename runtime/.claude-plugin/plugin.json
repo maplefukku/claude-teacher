@@ -1,0 +1,21 @@
+{
+  "name": "claude-teacher",
+  "version": "0.1.0",
+  "description": "Interactive hands-on LMS that runs inside Claude Code. Skills launch lessons, a subagent plays teacher, progress lives in plain files.",
+  "author": {
+    "name": "claude-teacher"
+  },
+  "keywords": [
+    "education",
+    "lms",
+    "skills",
+    "teaching",
+    "hands-on"
+  ],
+  "homepage": "https://github.com/maplefukku/claude-teacher",
+  "license": "MIT",
+  "components": {
+    "skills": "./skills",
+    "agents": "./agents"
+  }
+}
